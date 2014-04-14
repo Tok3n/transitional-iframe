@@ -39,18 +39,16 @@
         <h4>Hi!</h4>
       </div>
     </div>
-  <script src="./jquery.js"></script>
   <script>
-    (function( $ ){
-
-      // var form = $( ".tok3n-form" );
+    (function(){
       var form = document.querySelector( ".tok3n-form" );
       var parent = window.parent;
-      var parentOrigin = "http://localhost:8000";
+      var parentOrigin;
 
       function receiveMessage( event ) {
         var message = event.data;
         if ( message.cmd === "show" ) {
+          parentOrigin = message.origin;
           showFrame();
         } else if ( message.cmd === "hide" ) {
           hideFrame();
@@ -76,7 +74,7 @@
         }
       });
 
-    })( jQuery );
+    })();
   </script>
 </body>
 </html>

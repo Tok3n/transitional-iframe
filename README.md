@@ -1,0 +1,1 @@
+Skeleton project for development of modular iframe authentication component for client apps.
