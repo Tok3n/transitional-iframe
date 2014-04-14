@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title></title>
+</head>
+<style type="text/css">
+
+  *, *:before, *:after {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Avenir Next", "Avenir", sans-serif;
+  }
+
+  .wrapper {
+    width: 48em;
+    max-width: 96%;
+    margin: 2rem auto;
+  }
+
+</style>
+
+<body>
+
+  <div class="wrapper">
+
+    <h1>Client Page</h1>
+
+    <button class="tok3n-button">Authenticate with Tok3n</button>
+
+    <iframe style="display:none; width: 100vw; height: 100vh; border: none; transition: all .25s ease; -webkit-transition: all .25s ease-in-out; opacity: 0; top: 0; left: 0; position: fixed;" id="tok3n-authentication-iframe" src="./iframe.html"></iframe>
+    <script>(function(){iframe=document.querySelector("#tok3n-authentication-iframe");contentWindow=iframe.contentWindow;iframeOrigin="http://localhost:8000";document.querySelector(".tok3n-button").addEventListener("click",function(a){iframe.style.display="block";setTimeout(function(){iframe.style.opacity=1},0);setTimeout(function(){contentWindow.postMessage({cmd:"show"},iframeOrigin)},250)});window.addEventListener("message",function(a){iframe.style.opacity=0;setTimeout(function(){iframe.style.display="none"},250)})})();</script>
+
+  </div>
+<!-- 
+  <script>
+    (function(){
+      iframe = document.querySelector( "#tok3n-authentication-iframe" );
+      contentWindow = iframe.contentWindow;
+      iframeOrigin = "http://localhost:8000";
+      document.querySelector( ".tok3n-button" ).addEventListener("click", function( evt ) {
+        iframe.style.display = "block";
+        setTimeout( function() {
+          iframe.style.opacity = 1;
+        }, 0 );
+        setTimeout( function() {
+          contentWindow.postMessage({ cmd: "show" }, iframeOrigin);
+        }, 250 );
+      });
+      window.addEventListener( "message", function( evt ) {
+        iframe.style.opacity = 0;
+        setTimeout( function(){
+          iframe.style.display = "none";
+        }, 250 )
+      });
+    })();
+  </script>
+ -->
+</body>
+</html>

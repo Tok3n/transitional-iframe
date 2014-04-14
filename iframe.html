@@ -1,0 +1,82 @@
+<html>
+<head>
+  <title></title>
+</head>
+
+  <style>
+
+  body, html {
+    padding: 0;
+    margin: 0;
+  }
+
+  .overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba(0,0,0,.8);
+    z-index: 8000;
+  }
+
+  .tok3n-form {
+    -webkit-transform: translateY( -200% );
+    width: 20em;
+    height: 20em;
+    background: white;
+    margin: 2rem auto;
+    transition: all .5s ease-in-out;
+  }
+
+  .tok3n-form.visible {
+    -webkit-transform: translateY( 0 );
+  }
+
+  </style>
+
+<body>
+    <div class="overlay">
+      <div class="tok3n-form">
+        <h4>Hi!</h4>
+      </div>
+    </div>
+  <script src="./jquery.js"></script>
+  <script>
+    (function( $ ){
+
+      // var form = $( ".tok3n-form" );
+      var form = document.querySelector( ".tok3n-form" );
+      var parent = window.parent;
+      var parentOrigin = "http://localhost:8000";
+
+      function receiveMessage( event ) {
+        var message = event.data;
+        if ( message.cmd === "show" ) {
+          showFrame();
+        } else if ( message.cmd === "hide" ) {
+          hideFrame();
+        }
+      }
+
+      function showFrame() {
+        form.classList.add( "visible" );
+      }
+
+      function hideFrame() {
+        form.classList.remove( "visible" );
+        setTimeout( function() {
+          parent.postMessage( "hide", parentOrigin );
+        }, 200 )
+      }
+
+      window.addEventListener( "message", receiveMessage, false );
+
+      document.querySelector( "body" ).addEventListener( "click", function( event ) {
+        if ( !( event.target === form ) ) {
+          hideFrame();
+        }
+      });
+
+    })( jQuery );
+  </script>
+</body>
+</html>
