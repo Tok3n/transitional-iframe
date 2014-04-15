@@ -29,7 +29,7 @@
 
     <button class="tok3n-button">Authenticate with Tok3n</button>
 
-    <iframe style="display:none; width: 100vw; height: 100vh; border: none; transition: all .25s ease; -webkit-transition: all .25s ease-in-out; opacity: 0; top: 0; left: 0; position: fixed;" id="tok3n-authentication-iframe" src="./iframe.html"></iframe>
+    <iframe style="display:none; width: 100vw; height: 100vh; border: none; transition: all .32s ease; -webkit-transition: all .32s ease-in-out; opacity: 0; top: 0; left: 0; position: fixed;" id="tok3n-authentication-iframe" src="./iframe.html"></iframe>
   </div>
 
   <script>
@@ -37,21 +37,27 @@
       iframe = document.querySelector( "#tok3n-authentication-iframe" );
       contentWindow = iframe.contentWindow;
       iframeOrigin = "http://localhost:8000";
+
       document.querySelector( ".tok3n-button" ).addEventListener("click", function( evt ) {
         iframe.style.display = "block";
+
         setTimeout( function() {
           iframe.style.opacity = 1;
         }, 0 );
+
         setTimeout( function() {
           contentWindow.postMessage({ cmd: "show", origin: window.location.origin }, iframeOrigin);
-        }, 250 );
+        }, 160 );
+
       });
+
       window.addEventListener( "message", function( evt ) {
         iframe.style.opacity = 0;
         setTimeout( function(){
           iframe.style.display = "none";
-        }, 250 )
+        }, 320 )
       });
+      
     })();
   </script>
 

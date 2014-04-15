@@ -10,6 +10,10 @@
     margin: 0;
   }
 
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   .overlay {
     width: 100vw;
     height: 100vh;
@@ -19,12 +23,15 @@
   }
 
   .tok3n-form {
-    -webkit-transform: translateY( -200% );
+    -webkit-transform: translateY( -100% );
     width: 20em;
-    height: 20em;
     background: white;
-    margin: 2rem auto;
-    transition: all .5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: all .32s ease-in-out;
   }
 
   .tok3n-form.visible {
@@ -55,23 +62,32 @@
         }
       }
 
+      function postMessage() {
+        parent.postMessage( { cmd: "hide" }, parentOrigin );
+      }
+
       function showFrame() {
-        form.classList.add( "visible" );
+        var windowHeight = window.innerHeight;
+        var formHeight   = form.clientHeight;
+        var offsetTop = ( windowHeight - formHeight ) / 2
+        console.log( offsetTop );
+        form.style.webkitTransform = form.style.transform = "translateY(" + offsetTop + "px)";
       }
 
       function hideFrame() {
-        form.classList.remove( "visible" );
+        form.style.webkitTransform = form.style.transform = "translateY(-100%)";
         setTimeout( function() {
-          parent.postMessage( "hide", parentOrigin );
-        }, 200 )
+          postMessage();
+        }, 160 )
       }
 
       window.addEventListener( "message", receiveMessage, false );
 
-      document.querySelector( "body" ).addEventListener( "click", function( event ) {
+      document.body.addEventListener( "click", function( event ) {
         if ( !( event.target === form ) ) {
           hideFrame();
         }
+
       });
 
     })();
